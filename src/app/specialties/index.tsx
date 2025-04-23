@@ -26,7 +26,6 @@ const Specialties: React.FC = () => {
 		setLoading(true);
 
 		try {
-			// Usamos take=100 para garantir que todos os itens sejam retornados
 			const response = await apiRequest(
 				'get',
 				`${API_ROUTES.specialties.getAll}?take=100`

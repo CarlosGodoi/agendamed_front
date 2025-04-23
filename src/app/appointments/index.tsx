@@ -90,7 +90,6 @@ const Appointments: React.FC = () => {
 				}
 
 				const formattedDate = format(parsedDate, 'yyyy-MM-dd');
-				console.log('Comparando:', formattedDate, 'com', date);
 
 				return formattedDate === date;
 			} catch (error) {

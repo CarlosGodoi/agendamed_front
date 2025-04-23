@@ -1,22 +1,17 @@
-import {
-	BrowserRouter as Router,
-	Navigate,
-	Route,
-	Routes,
-} from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { lazy, Suspense, useEffect } from 'react';
 import { ProtectedRoutes } from '@/guard/protectedRoutes';
 import { useRequest } from '@/hooks/useRequest';
 import { privateRoutes } from './private.routes';
-import PublicRoutes from '@/guard/publicRoutes';
 import useAuthContext from '@/hooks/useAuthContext';
+import Home from '@/app/home';
 
 const Login = lazy(() => import('@/app/login'));
 
 const Loading = () => <div>Carregando...</div>;
 
 export const MappedRoutes = () => {
-	const { user } = useAuthContext();
+	const { signed } = useAuthContext();
 	const { apiRequest } = useRequest();
 
 	useEffect(() => {
@@ -35,56 +30,44 @@ export const MappedRoutes = () => {
 	}, [apiRequest]);
 
 	return (
-		<Router>
-			<Suspense fallback={<Loading />}>
-				<Routes>
-					{/* Rotas protegidas */}
-					<Route path="/" element={<ProtectedRoutes />} />
-					<Route index element={<Navigate replace to="/dashboard" />} />
-
-					{/* Mapeando rotas privadas */}
-					{privateRoutes.map(({ Page, children, path, permission }, index) => {
-						if (user?.role && permission.includes(user.role)) {
+		<Suspense fallback={<Loading />}>
+			<Routes>
+				{/* Rota raiz para redirecionar para dashboard */}
+				<Route path="/" element={<ProtectedRoutes />}>
+					<Route index element={<Navigate replace to="dashboard" />} />{' '}
+					{/* <-- sem barra */}
+					<Route path="dashboard" element={<Home />} />
+					{privateRoutes
+						.filter((route) => route.path !== 'dashboard') // <-- compare sem a barra também
+						.map(({ Page, children, path }, index) => {
 							return (
 								<Route key={index} path={path} element={<Page />}>
-									{/* Verificando se existem children */}
-									{children.length > 0 &&
-										children.map(
-											(
-												{
-													Component,
-													pathChild,
-													indexRoute,
-													permission: permissionChild,
-												},
-												ind
-											) => {
-												if (permissionChild.includes(user.role)) {
-													return (
-														<Route
-															index={indexRoute}
-															key={ind}
-															path={pathChild}
-															element={<Component />}
-														/>
-													);
-												}
-												return null; // Evita erro caso a condição não seja satisfeita
-											}
-										)}
+									{children.map(({ Component, pathChild }, ind) => {
+										return (
+											<Route
+												key={ind}
+												path={pathChild} // também deve ser relativo, sem barra!
+												element={<Component />}
+											/>
+										);
+									})}
 								</Route>
 							);
-						}
-						return null;
-					})}
+						})}
+				</Route>
 
-					{/* Rotas públicas */}
-					<Route path="/" element={<PublicRoutes />}>
-						<Route path="/login" element={<Login />} />
-						<Route path="*" element={<Navigate replace to="/login" />} />
-					</Route>
-				</Routes>
-			</Suspense>
-		</Router>
+				{/* Rota de login isolada */}
+				<Route
+					path="/login"
+					element={signed ? <Navigate replace to="/" /> : <Login />}
+				/>
+
+				{/* Fallback para qualquer outra rota */}
+				<Route
+					path="*"
+					element={<Navigate replace to={signed ? '/' : '/login'} />}
+				/>
+			</Routes>
+		</Suspense>
 	);
 };

@@ -24,12 +24,12 @@ interface PrivateRoute {
 
 export const privateRoutes: PrivateRoute[] = [
 	{
-		path: '/dashboard',
+		path: 'dashboard',
 		Page: Home,
 		children: [
 			{
 				Component: Home,
-				pathChild: 'subrota',
+				pathChild: '',
 				indexRoute: true,
 				permission: [ROLE.ADMIN, ROLE.OPERATOR],
 			},
@@ -37,12 +37,12 @@ export const privateRoutes: PrivateRoute[] = [
 		permission: [ROLE.ADMIN, ROLE.OPERATOR, ROLE.DOCTOR],
 	},
 	{
-		path: '/agendamentos',
+		path: 'agendamentos',
 		Page: Appointments,
 		children: [
 			{
 				Component: Appointments,
-				pathChild: 'subrota',
+				pathChild: '',
 				indexRoute: true,
 				permission: [ROLE.ADMIN, ROLE.OPERATOR],
 			},
@@ -50,7 +50,7 @@ export const privateRoutes: PrivateRoute[] = [
 		permission: [ROLE.ADMIN, ROLE.OPERATOR, ROLE.DOCTOR],
 	},
 	{
-		path: '/pacientes',
+		path: 'pacientes',
 		Page: Outlet,
 		permission: [ROLE.ADMIN, ROLE.OPERATOR, ROLE.DOCTOR],
 		children: [
@@ -63,12 +63,12 @@ export const privateRoutes: PrivateRoute[] = [
 		],
 	},
 	{
-		path: '/especialidades',
+		path: 'especialidades',
 		Page: Specialties,
 		children: [
 			{
 				Component: Specialties,
-				pathChild: 'subrota',
+				pathChild: '',
 				indexRoute: true,
 				permission: [ROLE.ADMIN, ROLE.OPERATOR],
 			},
@@ -76,12 +76,12 @@ export const privateRoutes: PrivateRoute[] = [
 		permission: [ROLE.ADMIN, ROLE.OPERATOR, ROLE.DOCTOR],
 	},
 	{
-		path: '/medicos',
+		path: 'medicos',
 		Page: Doctors,
 		children: [
 			{
 				Component: Doctors,
-				pathChild: 'subrota',
+				pathChild: '',
 				indexRoute: true,
 				permission: [ROLE.ADMIN, ROLE.OPERATOR],
 			},

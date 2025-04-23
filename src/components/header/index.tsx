@@ -23,7 +23,7 @@ export const Header: React.FC = () => {
 
 	const handleSigOut = () => {
 		signOut();
-		navigate('/login');
+		navigate('/');
 	};
 
 	const navLinks = [
@@ -42,37 +42,45 @@ export const Header: React.FC = () => {
 			</div>
 			<div className="flex-1 justify-center items-center">
 				<nav className="flex justify-center items-center gap-8">
-					{navLinks.map((link) =>
-						link.path ? (
-							<NavLink
-								key={link.path}
-								to={link.path}
-								className={({ isActive }) =>
-									clsx(
-										'text-lg font-medium transition-colors',
-										isActive
-											? 'text-secondary'
-											: 'text-gray_400 hover:text-white'
-									)
-								}
-							>
-								{link.name}
-							</NavLink>
-						) : (
-							<a
-								key={link.name}
-								onClick={link.action}
-								className="text-lg font-medium text-gray_400 hover:text-white cursor-pointer transition-colors"
-							>
-								{link.name}
-							</a>
-						)
-					)}
+					{navLinks.map((link) => {
+						if (link.path) {
+							return (
+								<NavLink
+									key={link.path}
+									to={link.path}
+									className={({ isActive }) =>
+										clsx(
+											'text-lg font-medium transition-colors',
+											isActive
+												? 'text-secondary'
+												: 'text-gray_400 hover:text-white'
+										)
+									}
+								>
+									{link.name}
+								</NavLink>
+							);
+						}
+
+						if (link.action) {
+							return (
+								<a
+									key={link.name}
+									onClick={link.action}
+									className="text-lg font-medium text-gray_400 hover:text-white cursor-pointer transition-colors"
+								>
+									{link.name}
+								</a>
+							);
+						}
+
+						return null;
+					})}
 				</nav>
 			</div>
 			<div className="flex-1 flex justify-end items-center gap-4 mr-10">
 				<Avatar>
-					<AvatarImage src="https://github.com/shadcn.png" />
+					<AvatarImage src="" />
 					<AvatarFallback>{userName?.charAt(0) || '?'}</AvatarFallback>
 				</Avatar>
 				<p className="text-lg text-white font-medium">{userName}</p>

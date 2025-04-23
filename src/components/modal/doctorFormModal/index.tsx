@@ -79,7 +79,6 @@ export const DoctorFormModal: React.FC<AppointmentFormModalProps> = ({
 
 		try {
 			const response = await apiRequest('post', API_ROUTES.doctor.create, data);
-			console.log('response_doctor =>', response);
 
 			if (response) {
 				toast('Médico cadastrado com sucesso!', {

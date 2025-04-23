@@ -12,6 +12,7 @@ export type TUser = {
 export interface IAuthContext {
 	user: TUser | null;
 	signed: boolean;
+	loading: boolean;
 	signIn: (data: {
 		email: string;
 		password: string;

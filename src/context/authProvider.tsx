@@ -11,6 +11,7 @@ interface IProps {
 const AuthProvider: React.FC<IProps> = ({ children }) => {
 	const { apiRequest } = useRequest();
 	const [user, setUser] = useState<TUser | null>(null);
+	const [loading, setLoading] = useState(true);
 	const signed = !!user;
 
 	async function signIn(data: {
@@ -19,7 +20,6 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 	}): Promise<{ status: boolean; message: string }> {
 		try {
 			const response = await apiRequest('post', '/auth', data);
-			console.log('Resposta da API:', response);
 
 			if (response?.accessToken) {
 				const { accessToken, refreshToken, user } = response;
@@ -98,22 +98,26 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
 	};
 
 	useEffect(() => {
+		setLoading(true);
 		const userCookie = Cookie.get('user');
 		if (userCookie) {
 			try {
 				const parsedUser = JSON.parse(userCookie) as TUser;
+
 				setUser(parsedUser);
 			} catch (error) {
+				console.error('Error parsing user cookie:', error);
 				if (error instanceof SyntaxError) setUser(null);
 			}
 		} else {
 			setUser(null);
 		}
+		setLoading(false);
 	}, []);
 
 	return (
 		<AuthContext.Provider
-			value={{ user, signIn, signed, signOut, updateUserContext }}
+			value={{ user, signIn, signed, signOut, updateUserContext, loading }}
 		>
 			{children}
 		</AuthContext.Provider>

@@ -65,7 +65,6 @@ export const UpdateAppointmentStatusModal: React.FC<
 
 	const handleSumitUpdateStatus = async (data: FormData) => {
 		setLoading(true);
-		console.log('data', data);
 
 		try {
 			const response = await apiRequest(
