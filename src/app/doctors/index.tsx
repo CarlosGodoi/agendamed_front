@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useRequest } from '@/hooks/useRequest';
 import { API_ROUTES } from '@/services/api_routes';
 import { IDoctor } from '@/utils/interfaces/doctors';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Trash } from 'phosphor-react';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -140,10 +141,12 @@ const Doctors: React.FC = () => {
 										<div className="flex justify-between items-center">
 											<div className="flex items-center gap-4 mb-2">
 												<div className="flex items-center justify-center w-16 h-16 rounded-full object-cover overflow-hidden">
-													<img
-														src="https://github.com/shadcn.png"
-														alt="Foto do rosto do médico"
-													/>
+													<Avatar>
+														<AvatarImage src="" />
+														<AvatarFallback className="bg-primary text-white font-medium shadow-md">
+															{doctor.name?.charAt(0) || '?'}
+														</AvatarFallback>
+													</Avatar>
 												</div>
 												<p className="text-lg text-gray-900 font-semibold">
 													{doctor.name}

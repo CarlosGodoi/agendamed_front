@@ -81,7 +81,9 @@ export const Header: React.FC = () => {
 			<div className="flex-1 flex justify-end items-center gap-4 mr-10">
 				<Avatar>
 					<AvatarImage src="" />
-					<AvatarFallback>{userName?.charAt(0) || '?'}</AvatarFallback>
+					<AvatarFallback className="text-primary font-medium">
+						{userName?.charAt(0) || '?'}
+					</AvatarFallback>
 				</Avatar>
 				<p className="text-lg text-white font-medium">{userName}</p>
 			</div>
