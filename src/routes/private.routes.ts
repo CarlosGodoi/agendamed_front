@@ -7,6 +7,7 @@ const Appointments = lazy(() => import('@/app/appointments'));
 const Specialties = lazy(() => import('@/app/specialties'));
 const Patients = lazy(() => import('@/app/patients'));
 const Doctors = lazy(() => import('@/app/doctors'));
+const Administration = lazy(() => import('@/app/administration'));
 
 interface PrivateRouteChild {
 	Component: React.ComponentType;
@@ -87,5 +88,18 @@ export const privateRoutes: PrivateRoute[] = [
 			},
 		],
 		permission: [ROLE.ADMIN, ROLE.OPERATOR, ROLE.DOCTOR],
+	},
+	{
+		path: 'administracao',
+		Page: Administration,
+		children: [
+			{
+				Component: Administration,
+				pathChild: '',
+				indexRoute: true,
+				permission: [ROLE.ADMIN],
+			},
+		],
+		permission: [ROLE.ADMIN],
 	},
 ];

@@ -32,12 +32,13 @@ export const Header: React.FC = () => {
 		{ name: 'Pacientes', path: '/pacientes' },
 		{ name: 'Especialidades', path: '/especialidades' },
 		{ name: 'Médicos', path: '/medicos' },
+		{ name: 'Administração', path: '/administracao' },
 		{ name: 'Sair', action: handleSigOut },
 	];
 
 	return (
 		<header className="flex h-20 justify-around items-center bg-primary">
-			<div className="flex-1 items-start">
+			<div className="flex w-fit items-start">
 				<Logo />
 			</div>
 			<div className="flex-1 justify-center items-center">
@@ -78,7 +79,7 @@ export const Header: React.FC = () => {
 					})}
 				</nav>
 			</div>
-			<div className="flex-1 flex justify-end items-center gap-4 mr-10">
+			<div className="flex w-fit justify-end items-center gap-4 mr-10">
 				<Avatar>
 					<AvatarImage src="" />
 					<AvatarFallback className="text-primary font-medium">
