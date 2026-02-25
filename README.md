@@ -18,7 +18,6 @@ Antes do Agendamed, as clínicas enfrentavam desafios como:
 - ❌ Processos desorganizados para cadastro de pacientes
 - ❌ Falta de controle sobre especialidades e médicos
 
-<<<<<<< HEAD
 ## Demonstração
 
 Front-end demo: agendamed-front.vercel.app
@@ -527,4 +526,3 @@ Funcionalidades planejadas para futuras versões:
 ---
 
 **Desenvolvido com ❤️ para modernizar a gestão de clínicas médicas**
->>>>>>> 3098a29 (docs: criação de documentação para Readme)
